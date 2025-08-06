@@ -328,7 +328,26 @@
     }
 
     .hero {
-      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      background: 
+        /* Primary dark gradient */
+        linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%),
+        /* Metallic mesh pattern */
+        repeating-linear-gradient(
+          0deg,
+          transparent 0px,
+          rgba(59, 130, 246, 0.03) 1px,
+          rgba(59, 130, 246, 0.03) 2px,
+          transparent 3px,
+          transparent 40px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent 0px,
+          rgba(59, 130, 246, 0.03) 1px,
+          rgba(59, 130, 246, 0.03) 2px,
+          transparent 3px,
+          transparent 40px
+        );
       padding: 200px 0 120px 0;
       text-align: center;
       position: relative;
@@ -342,9 +361,56 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: radial-gradient(circle at 30% 20%, var(--accent-glow) 0%, transparent 50%),
-                  radial-gradient(circle at 70% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+      background: 
+        /* Glowing metallic orbs */
+        radial-gradient(circle at 25% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 30%),
+        radial-gradient(circle at 75% 70%, rgba(34, 197, 94, 0.1) 0%, transparent 25%),
+        radial-gradient(circle at 50% 20%, rgba(244, 244, 245, 0.05) 0%, transparent 40%),
+        /* Diagonal metallic streaks */
+        linear-gradient(
+          45deg,
+          transparent 30%,
+          rgba(255, 255, 255, 0.02) 50%,
+          transparent 70%
+        );
+      filter: blur(0.5px);
       pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: 
+        /* Animated shimmer effect */
+        conic-gradient(
+          from 0deg at 50% 50%,
+          transparent 0deg,
+          rgba(59, 130, 246, 0.08) 45deg,
+          rgba(244, 244, 245, 0.04) 90deg,
+          rgba(34, 197, 94, 0.06) 135deg,
+          transparent 180deg,
+          rgba(59, 130, 246, 0.08) 225deg,
+          rgba(244, 244, 245, 0.04) 270deg,
+          rgba(34, 197, 94, 0.06) 315deg,
+          transparent 360deg
+        );
+      animation: rotateShimmer 20s linear infinite;
+      opacity: 0.3;
+      filter: blur(1px);
+      pointer-events: none;
+    }
+
+    @keyframes rotateShimmer {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .hero > .container {
@@ -377,7 +443,7 @@
     }
 
     .hero-subtitle {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 400;
       color: var(--text-secondary);
       margin-bottom: 24px;
@@ -399,12 +465,102 @@
       }
     }
 
+    /* Hero CTA Buttons */
+    .hero-cta {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 48px;
+      animation: ctaReveal 1s 0.6s ease-out both;
+    }
+
+    @keyframes ctaReveal {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 32px;
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      min-width: 160px;
+      justify-content: center;
+      border: 2px solid transparent;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .cta-button:hover::before {
+      left: 100%;
+    }
+
+    .cta-primary {
+      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+      color: white;
+      box-shadow: 0 8px 32px var(--accent-glow);
+    }
+
+    .cta-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 12px 40px var(--accent-glow);
+      background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent-primary) 100%);
+    }
+
+    .cta-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 2px solid var(--border-secondary);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .cta-secondary:hover {
+      transform: translateY(-2px) scale(1.02);
+      border-color: var(--accent-primary);
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--accent-primary);
+      box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+    }
+
+    .cta-icon {
+      font-size: 18px;
+      transition: transform 0.3s ease;
+    }
+
+    .cta-button:hover .cta-icon {
+      transform: translateX(2px);
+    }
+
     .hero-stats {
       display: flex;
       justify-content: center;
       gap: 64px;
       margin-top: 64px;
-      animation: statsReveal 1s 0.6s ease-out both;
+      animation: statsReveal 1s 0.8s ease-out both;
     }
 
     @keyframes statsReveal {
@@ -570,7 +726,15 @@
     }
 
     .throughput-comparison {
-      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+      background: 
+        linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%),
+        repeating-linear-gradient(
+          45deg,
+          transparent 0px,
+          rgba(59, 130, 246, 0.02) 1px,
+          transparent 2px,
+          transparent 60px
+        );
       border-radius: 3px;
       padding: 80px 60px;
       margin: 80px 0;
@@ -586,7 +750,10 @@
       right: -50%;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      background: 
+        radial-gradient(circle, var(--accent-glow) 0%, transparent 70%),
+        radial-gradient(circle at 80% 20%, rgba(244, 244, 245, 0.03) 0%, transparent 50%);
+      filter: blur(0.5px);
       pointer-events: none;
     }
 
@@ -752,6 +919,129 @@
       background: linear-gradient(135deg, var(--blue) 0%, #1d4ed8 100%);
       width: 0.0625%; /* 0.0625MB/s relative to 100MB/s */
       animation-delay: 1.4s;
+    }
+
+    /* Applications Section Styles */
+    .applications-section {
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      position: relative;
+    }
+
+    .applications-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
+                  radial-gradient(circle at 75% 75%, rgba(34, 197, 94, 0.04) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .applications-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 32px;
+      margin-top: 64px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .app-card {
+      background: var(--bg-elevated);
+      border-radius: 24px;
+      padding: 48px;
+      border: 2px solid var(--border-primary);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .app-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .app-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--accent-secondary);
+      box-shadow: 0 20px 60px var(--accent-glow);
+      background: var(--bg-elevated-hover);
+    }
+
+    .app-card:hover::before {
+      left: 100%;
+    }
+
+    .app-icon {
+      font-size: 48px;
+      margin-bottom: 24px;
+      display: block;
+      opacity: 0.9;
+    }
+
+    .app-card h3 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+      position: relative;
+      z-index: 1;
+    }
+
+    .app-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 16px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .app-throughput {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid var(--accent-primary);
+      border-radius: 12px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-primary);
+      position: relative;
+      z-index: 1;
+    }
+
+    .app-throughput::before {
+      content: '⚡';
+      font-size: 12px;
+    }
+
+    .more-apps-note {
+      text-align: center;
+      margin-top: 48px;
+      padding: 32px;
+      background: rgba(59, 130, 246, 0.05);
+      border-radius: 16px;
+      border: 1px solid var(--border-accent);
+      position: relative;
+      z-index: 1;
+    }
+
+    .more-apps-note p {
+      color: var(--text-tertiary);
+      font-style: italic;
+      font-size: 16px;
+      margin: 0;
     }
 
     .architecture-section {
@@ -1036,6 +1326,17 @@
         font-size: 20px;
         margin-bottom: 48px;
       }
+      .hero-cta {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        margin-top: 32px;
+      }
+      .cta-button {
+        padding: 14px 28px;
+        font-size: 15px;
+        min-width: 140px;
+      }
       .hero-stats { 
         flex-direction: column; 
         gap: 24px;
@@ -1160,6 +1461,29 @@
         font-size: 14px;
         padding: 6px 12px;
       }
+      
+      /* Applications section mobile styles */
+      .applications-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .app-card {
+        padding: 32px;
+      }
+      .app-icon {
+        font-size: 36px;
+        margin-bottom: 16px;
+      }
+      .app-card h3 {
+        font-size: 20px;
+      }
+      .app-card p {
+        font-size: 15px;
+      }
+      .more-apps-note {
+        padding: 24px;
+        margin-top: 32px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -1230,6 +1554,16 @@
           <p class="hero-subtitle">
             Explore how EigenDA V2 achieves unprecedented throughput while maintaining security and decentralization. The fastest data availability solution, now live on mainnet. 
           </p>
+          
+          <div class="hero-cta">
+            <a href="https://docs.eigencloud.xyz/products/eigenda/core-concepts/overview" target="_blank" class="cta-button cta-primary">
+              <span>Build Now</span>
+            </a>
+            <a href="https://www.eigenda.xyz/" target="_blank" class="cta-button cta-secondary">
+              <span>Learn More</span>
+              <span class="cta-icon">→</span>
+            </a>
+          </div>
           
           <!-- <div class="hero-stats">
             <div class="stat">
@@ -1312,6 +1646,86 @@
               <h3>🌐 Battle-Tested Scale</h3>
               <p>Live on mainnet with Fuel Network and Aevoxyz, plus rigorous 60-hour stress testing across 3 continents with peak performance at 124MB/s.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Applications Enabled Section -->
+      <section class="section applications-section" id="applications">
+        <div class="container">
+          <h2 class="section-title">Unlocking New Possibilities</h2>
+          <p class="section-subtitle">
+            With 100MB/s throughput, EigenDA V2 enables entirely new classes of applications 
+            that were previously impossible on blockchain infrastructure.
+          </p>
+
+          <div class="applications-grid">
+            <div class="app-card">
+              <div class="app-icon">📈</div>
+              <h3>High-Frequency Trading & CLOBs</h3>
+              <p>
+                Central Limit Order Books processing thousands of trades per second with full on-chain transparency. 
+                Market makers can now provide liquidity at centralized exchange speeds while maintaining decentralization.
+              </p>
+              <div class="app-throughput">10,000+ orders/sec</div>
+            </div>
+
+            <div class="app-card">
+              <div class="app-icon">🎮</div>
+              <h3>Massively Multiplayer Games</h3>
+              <p>
+                Real-time gaming with thousands of concurrent players, where every action, movement, and game state 
+                change is verifiably recorded on-chain without compromising gameplay experience.
+              </p>
+              <div class="app-throughput">50,000+ actions/sec</div>
+            </div>
+
+            <div class="app-card">
+              <div class="app-icon">🤖</div>
+              <h3>AI Model Training & Inference</h3>
+              <p>
+                Decentralized AI networks where training data, model updates, and inference results are stored 
+                with cryptographic proofs, enabling verifiable AI at unprecedented scale.
+              </p>
+              <div class="app-throughput">1GB+ model updates</div>
+            </div>
+
+            <div class="app-card">
+              <div class="app-icon">📡</div>
+              <h3>Real-Time Data Feeds</h3>
+              <p>
+                High-frequency oracle networks providing continuous price feeds, IoT sensor data, and market information 
+                with sub-second latency for DeFi protocols and enterprise applications.
+              </p>
+              <div class="app-throughput">100,000+ data points/sec</div>
+            </div>
+
+            <div class="app-card">
+              <div class="app-icon">🏦</div>
+              <h3>Enterprise Settlement</h3>
+              <p>
+                Cross-border payments and trade finance systems processing international transactions 
+                with the same speed as traditional banking rails but with blockchain transparency.
+              </p>
+              <div class="app-throughput">25,000+ settlements/sec</div>
+            </div>
+
+            <div class="app-card">
+              <div class="app-icon">🎬</div>
+              <h3>Live Content Streaming</h3>
+              <p>
+                Decentralized video and content platforms where creators can stream directly to audiences 
+                with verifiable view counts and instant micropayments for content consumption.
+              </p>
+              <div class="app-throughput">4K streaming + metadata</div>
+            </div>
+          </div>
+
+          <div class="more-apps-note">
+            <p>
+              These are just six examples of what becomes possible with EigenDA V2's 100MB/s throughput. 
+              The true potential lies in applications we haven't even imagined yet.
+            </p>
           </div>
         </div>
       </section>
