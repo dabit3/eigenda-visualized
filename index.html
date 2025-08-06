@@ -272,33 +272,22 @@
     }
 
     .logo {
-      font-size: 22px;
-      font-weight: 600;
-      color: var(--accent-primary);
       text-decoration: none;
       transition: all 0.3s ease;
-      position: relative;
-      letter-spacing: .07rem;
+      display: flex;
+      align-items: center;
     }
 
-    .logo:hover {
+    .logo-image {
+      height: 32px;
+      width: auto;
+      transition: all 0.3s ease;
+      filter: brightness(1);
+    }
+
+    .logo:hover .logo-image {
       transform: scale(1.05);
-      color: var(--accent-secondary);
-    }
-
-    .logo::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-      transition: width 0.3s ease;
-    }
-
-    .logo:hover::after {
-      width: 100%;
+      filter: brightness(1.1);
     }
 
     .nav {
@@ -1220,7 +1209,9 @@
     <header class="header">
       <div class="container">
         <div class="header-content">
-          <a href="#" class="logo">EIGENDA</a>
+          <a href="#" class="logo">
+            <img src="logo.png" alt="EigenDA" class="logo-image">
+          </a>
           <nav class="nav">
             <a href="#overview" class="nav-link">Overview</a>
             <a href="#architecture" class="nav-link">Architecture</a>
