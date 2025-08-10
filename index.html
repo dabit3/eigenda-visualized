@@ -395,6 +395,16 @@
       animation: titleReveal 1s ease-out;
     }
 
+    .hero-metric {
+      font-size: 144px;
+    }
+
+    @media (max-width: 800px) {
+      .hero-metric {
+        font-size: 80px;
+      }
+    }
+
     @keyframes titleReveal {
       from {
         opacity: 0;
@@ -1533,7 +1543,7 @@
       <!-- Hero Section -->
       <section class="hero">
         <div class="container">
-          <h1 class="hero-title">EigenDA V2<br><span style="font-size: 144px !important;">100MB/s</span></h1>
+          <h1 class="hero-title">EigenDA V2<br><span class="hero-metric">100MB/s</span></h1>
           <p class="hero-subtitle">
             Explore how EigenDA V2 achieves unprecedented throughput while maintaining security and decentralization. The fastest data availability solution, now live on mainnet. 
           </p>
